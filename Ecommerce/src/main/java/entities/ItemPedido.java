@@ -3,6 +3,8 @@ package entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "itens_pedido")
 @Data
@@ -10,7 +12,7 @@ public class ItemPedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private UUID Id;
 
     @Column(nullable = false)
     private Integer quantidade;

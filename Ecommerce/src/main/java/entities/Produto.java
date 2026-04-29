@@ -20,7 +20,7 @@ public class Produto {
 
     @Column(nullable = false)
     private Double preco;
-    private String imgURL;
+    private String imgUrl;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
