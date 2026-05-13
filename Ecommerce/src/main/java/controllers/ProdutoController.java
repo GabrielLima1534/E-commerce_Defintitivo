@@ -1,5 +1,6 @@
 package controllers;
 
+import DTOs.ProdutoDTO;
 import entities.Produto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import services.ProdutoService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/produtos")
@@ -19,15 +21,16 @@ public class ProdutoController {
     private ProdutoService service;
 
     @GetMapping
-    public ResponseEntity<List<Produto>> findAll() {
+    public ResponseEntity<List<ProdutoDTO>> findAll() {
         List<Produto> list = service.findAll();
-        return ResponseEntity.ok().body(list);
+        List<ProdutoDTO> listDto = list.stream().map(ProdutoDTO::new).toList();
+        return ResponseEntity.ok().body(listDto);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Produto> findById(@PathVariable Long id) {
+    public ResponseEntity<ProdutoDTO> findById(@PathVariable UUID id) {
         Produto obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(new ProdutoDTO(obj));
     }
 
 }

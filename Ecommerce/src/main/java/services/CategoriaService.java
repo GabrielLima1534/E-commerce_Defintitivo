@@ -7,6 +7,7 @@ import repositories.CategoriaRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CategoriaService {
@@ -18,7 +19,7 @@ public class CategoriaService {
         return repository.findAll();
     }
 
-    public Categoria findById(Long id) {
+    public Categoria findById(UUID id) {
         Optional<Categoria> obj = repository.findById(id);
         return obj.orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
     }

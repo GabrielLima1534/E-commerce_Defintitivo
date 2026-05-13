@@ -7,6 +7,7 @@ import repositories.ProdutoRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProdutoService {
@@ -18,7 +19,8 @@ public class ProdutoService {
         return repository.findAll();
     }
 
-    public Produto findById(Long id) {
+    // No seu ProdutoService.java
+    public Produto findById(UUID id) {
         Optional<Produto> obj = repository.findById(id);
         return obj.orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }

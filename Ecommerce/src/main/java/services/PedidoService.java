@@ -8,6 +8,7 @@ import repositories.PedidoRepository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PedidoService {
@@ -19,7 +20,7 @@ public class PedidoService {
         return repository.findAll();
     }
 
-    public Pedido findById(Long id) {
+    public Pedido findById(UUID id) {
         Optional<Pedido> obj = repository.findById(id);
         return obj.orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
     }

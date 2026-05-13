@@ -6,8 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
-public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
+import java.util.UUID;
+
+public interface CategoriaRepository extends JpaRepository<Categoria, UUID> {
 
     Optional<Categoria> findByNome(String nome);
 }
