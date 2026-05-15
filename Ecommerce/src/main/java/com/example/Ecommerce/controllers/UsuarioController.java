@@ -2,12 +2,15 @@ package com.example.Ecommerce.controllers;
 
 import com.example.Ecommerce.DTOs.UsuarioDTO;
 import com.example.Ecommerce.entities.Usuario;
+import com.example.Ecommerce.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.Ecommerce.services.UsuarioService;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +21,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService service;
+
+    @Autowired
+    private PhotoService photoService;
 
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> findAll() {
@@ -53,5 +59,21 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDTO> update(@PathVariable UUID id, @RequestBody Usuario obj) {
         obj = service.update(id, obj);
         return ResponseEntity.ok().body(new UsuarioDTO(obj));
+    }
+
+    @PostMapping("/{id}/photo")
+    public ResponseEntity<String> uploadPhoto(
+            @PathVariable UUID id,
+            @RequestParam("file") MultipartFile file) throws IOException {
+
+        String fileName = photoService.savePhoto(file);
+
+        Usuario usuario = service.findById(id);
+
+        usuario.setPhoto(fileName);
+
+        service.insert(usuario);
+
+        return ResponseEntity.ok("Foto enviada com sucesso");
     }
 }

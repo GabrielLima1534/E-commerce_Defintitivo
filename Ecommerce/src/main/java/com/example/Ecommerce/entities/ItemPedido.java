@@ -11,7 +11,7 @@ import java.util.UUID;
 public class ItemPedido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID Id;
 
     @Column(nullable = false)
